@@ -39,4 +39,36 @@ public class Transaction {
         String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(reciepient) + Float.toString(value);
         return StringUtil.verifyECDSASig(sender, data, signature);
     }
+
+
+    public boolean processTransaction() {
+        if(verifiySignature() == false) {
+            System.out.println("#Transaction Signature failed to verify");
+            return false;
+        }
+
+        for(TransactionInput i : inputs) {
+            i.UTXO = NoobChain.UTXOs.get(i.transactionOutputId);
+        }
+
+        if(getInputsValue() < NoobChain.minimumTransaction)
+    }
+
+    public float getInputsValue() {
+        float total = 0;
+        for(TransactionInput i : inputs) {
+            if(i.UTXO == null) continue; //if Transaction can't be found skip it
+            total += i.UTXO.value;
+        }
+        return total;
+    }
+
+    public float getOutputsValue() {
+        float total = 0;
+        for(TransactionOutput o : outputs) {
+            total += o.value;
+        }
+        return total;
+    }
+
 }

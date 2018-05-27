@@ -32,6 +32,6 @@ public class SetupService {
         user.getProfile().setPhone("0723083772");
         user.getProfile().setMobilePhone("0723083772");
 
-        repository.save(user, new Session());
+        repository.save(user);
     }
 }

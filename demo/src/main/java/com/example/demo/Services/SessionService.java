@@ -3,7 +3,6 @@ package com.example.demo.Services;
 import com.example.demo.Models.Session;
 import com.example.demo.Models.User;
 import com.example.demo.Repositories.SessionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
@@ -49,7 +48,7 @@ public class SessionService {
         session.setAccessedAt(Time.from(Instant.now()));
 
         //should it be saved here?
-        repository.save(session, session);
+        repository.save(session);
 
         return session;
 

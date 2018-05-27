@@ -2,6 +2,7 @@ import com.google.gson.GsonBuilder;
 
 import java.security.Security;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NoobChain {
 
@@ -9,6 +10,8 @@ public class NoobChain {
     public static int difficulty = 5;
     public static Wallet walletA;
     public static Wallet walletB;
+    public static HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>(); //list of all unspent transactions.
+
 
     public static void main(String[] args) {
 

@@ -5,19 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class UserRepository extends EntityBaseRepository<User> {
+import java.util.UUID;
 
-    @Autowired
-    public UserRepository(MongoTemplate mongoTemplate) {
 
-    }
+public interface UserRepository extends MongoRepository<User, UUID>, UserRepositoryCustom {
 
-    public User findByEmail(String email) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("email").is(email));
-        return super.findByQuery(query);
-    }
 }
