@@ -3,8 +3,12 @@ package hello.Controllers;
 import hello.Authentication.PasswordHelper;
 import hello.Models.User;
 import hello.Services.UserService;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+
 
 @RestController
 public class GreetingsController {
@@ -15,12 +19,24 @@ public class GreetingsController {
         this.userService = userService;
     }
 
-    @RequestMapping("hello")
-    public String Hello() {
-        return "Hello world";
+    @GetMapping("/hello")
+    public ModelAndView Hello() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Hej");
+        list.add("På");
+        list.add("Dig");
+        ModelAndView model = new ModelAndView("hello");
+        model.addObject("greetings", list);
+
+        return model;
     }
 
-    @RequestMapping("/person")
+    @GetMapping("/")
+    public String HelloStirng() {
+        return "hello";
+    }
+
+    @GetMapping("/person")
     public User doWork() {
         User user = new User();
 

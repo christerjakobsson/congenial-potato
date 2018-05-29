@@ -12,10 +12,11 @@ import java.util.Date;
 import java.util.UUID;
 
 @Service
-public class SessionService {
+public class SessionService extends EntityService<Session> {
     private final SessionRepository repository;
 
     public SessionService(SessionRepository sessionRepository) {
+        super(sessionRepository);
         this.repository = sessionRepository;
     }
 
