@@ -1,7 +1,8 @@
 package hello.Controllers;
 
-import com.example.demo.Controllers.Requests.LoginRequest;
 import hello.Authentication.PasswordHelper;
+import hello.Controllers.Requests.LoginRequest;
+import hello.Controllers.Requests.SignupRequest;
 import hello.Models.Session;
 import hello.Models.User;
 import hello.Repositories.UserRepository;
@@ -53,4 +54,31 @@ public class SecurityController {
 
         return null;
     }
+
+    @PostMapping("/signup")
+    public ResponseEntity Signup(@RequestBody SignupRequest dto) {
+        User byEmail = userRepository.findByEmail(dto.Email);
+
+        if(byEmail != null) {
+            return new ResponseEntity(HttpStatus.CONFLICT);
+        }
+
+        if(dto.Password.length() <= 6) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+        User newUser = new User();
+        newUser.email = dto.Email;
+        newUser.username = dto.Username;
+        newUser.password = passwordHelper.hash(dto.Password);
+
+        User save = userRepository.save(newUser);
+
+        if(save == null) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    //validate token
 }

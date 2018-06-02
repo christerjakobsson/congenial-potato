@@ -1,4 +1,4 @@
-package com.example.demo.Controllers.Requests;
+package hello.Controllers.Requests;
 
 public class LoginRequest {
     public String Username;

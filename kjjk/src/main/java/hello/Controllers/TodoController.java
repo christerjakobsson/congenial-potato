@@ -40,4 +40,16 @@ public class TodoController {
     public ModelAndView NewView() {
         return new ModelAndView("todos/new");
     }
+
+    @PutMapping("/todos")
+    public ModelAndView CreateView(@RequestBody Todo todo) {
+        Todo save = service.save(todo);
+
+        if(save == null) {
+            return new ModelAndView();
+
+        }
+
+        return new ModelAndView("redirect:/todos/index");
+    }
 }
